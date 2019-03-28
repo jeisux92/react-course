@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import Person from "./Person/Person";
+import Test from "./Test/Test";
 import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.togglePersonhandler = this.togglePersonhandler.bind(this);
+  }
   changeNameHandler = () => {
     this.setState((props, value) => ({
       person: {
@@ -20,25 +25,44 @@ class App extends Component {
       }
     });
   };
-
+  togglePersonhandler = e => {
+    this.setState(prevState => ({
+      showPerson: !prevState.showPerson
+    }));
+  };
   state = {
     person: {
       name: "Gabriel",
       age: 26
-    }
+    },
+    showPerson: true
   };
   render() {
+    const styles = {
+      backgroundColor: "white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px"
+    };
     return (
       <div className="App">
-        <button onClick={this.changeNameHandler.bind(this)} value="2">
+        <Test />
+        <button onClick={this.togglePersonhandler} value="2" style={styles}>
           Switch Name
         </button>
-        <Person
-          change={this.nameChangedHandler.bind(this)}
-          click={e => this.changeNameHandler()}
-          name={this.state.person.name}
-          age={this.state.person.age}
-        />
+        {this.state.showPerson ? (
+          <div>
+            <span> {this.state.showPerson}</span>
+            <Person
+              change={this.nameChangedHandler}
+              click={this.changeNameHandler}
+              name={this.state.person.name}
+              age={this.state.person.age}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
