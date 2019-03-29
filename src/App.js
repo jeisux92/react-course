@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Person from "./Person/Person";
+<<<<<<< HEAD
 import Test from "./Test/Test";
 import ValidationComponent from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
@@ -17,6 +18,18 @@ class App extends Component {
       if (x.id === id) {
         x.name = "Maximilian";
         x.age = 25;
+=======
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
+import "./App.css";
+
+class App extends Component {
+  changeNameHandler = (newName) => {
+    this.setState((props, value) => ({
+      person: {
+        name: newName,
+        age: props.person.age + 24
+>>>>>>> 1ea6f9900eab54a636a3282c837c8676d1fca41b
       }
     });
     this.setState({
@@ -42,6 +55,7 @@ class App extends Component {
     }));
   };
   state = {
+<<<<<<< HEAD
     persons: [
       {
         id: 1,
@@ -76,8 +90,29 @@ class App extends Component {
     this.setState({
       inputText: inputText
     });
+=======
+    person: {
+      name: "Gabriel",
+      age: 26
+    },
+    username: "Gabriel",
+    showPerson: false
+>>>>>>> 1ea6f9900eab54a636a3282c837c8676d1fca41b
   };
+
+  changeUserNameHandler = (event) => {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
+  togglePersonsHandler = () => {
+    this.setState(prevState => ({
+      showPerson: !prevState.showPerson
+    }))
+  }
   render() {
+<<<<<<< HEAD
     const styles = {
       backgroundColor: "green",
       font: "inherit",
@@ -119,10 +154,19 @@ class App extends Component {
 
     if (this.state.persons.length <= 1) {
       classes.push("bold");
+=======
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+>>>>>>> 1ea6f9900eab54a636a3282c837c8676d1fca41b
     }
 
     return (
       <div className="App">
+<<<<<<< HEAD
         <Test />
         <button onClick={this.togglePersonhandler} value="2" style={styles}>
           Switch Name
@@ -143,6 +187,26 @@ class App extends Component {
             key={index}
           />
         ))}
+=======
+
+        <button style={style} onClick={this.togglePersonsHandler} value="2">
+          Switch Name
+        </button>
+        {this.state.showPerson ?
+          <Person
+            change={this.nameChangedHandler.bind(this)}
+            click={this.changeNameHandler.bind(this)}
+            name={this.state.person.name}
+            age={this.state.person.age}
+          /> : ''
+        }
+        <UserInput
+          name={this.state.username}
+          change={this.changeUserNameHandler.bind(this)}>
+        </UserInput>
+        <UserOutput name={this.state.username}></UserOutput>
+
+>>>>>>> 1ea6f9900eab54a636a3282c837c8676d1fca41b
       </div>
     );
   }
