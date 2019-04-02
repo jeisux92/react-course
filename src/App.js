@@ -3,8 +3,8 @@ import Person from "./Person/Person";
 import Test from "./Test/Test";
 import ValidationComponent from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
-
 import classes from "./App.css";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 class App extends Component {
   constructor(props) {
@@ -78,17 +78,17 @@ class App extends Component {
     });
   };
 
-  changeUserNameHandler = (event) => {
+  changeUserNameHandler = event => {
     this.setState({
       username: event.target.value
-    })
-  }
+    });
+  };
 
   togglePersonsHandler = () => {
     this.setState(prevState => ({
       showPerson: !prevState.showPerson
-    }))
-  }
+    }));
+  };
   render() {
     const styles = {
       backgroundColor: "green",
@@ -107,16 +107,17 @@ class App extends Component {
         <div>
           <span> {this.state.showPerson}</span>
           {this.state.persons.map((person, index) => (
-            <Person
-              change={this.nameChangedHandler.bind(this, person.id)}
-              click={this.deletePersonHandler.bind(this, index)}
-              name={person.name}
-              id={person.id}
-              age={person.age}
-              key={person.id}
-            >
-              <p>holi</p>
-            </Person>
+            <ErrorBoundary key={person.id}>
+              <Person
+                change={this.nameChangedHandler.bind(this, person.id)}
+                click={this.deletePersonHandler.bind(this, index)}
+                name={person.name}
+                id={person.id}
+                age={person.age}
+              >
+                <p>holi</p>
+              </Person>
+            </ErrorBoundary>
           ))}
         </div>
       );
@@ -146,7 +147,7 @@ class App extends Component {
           value={this.state.inputText}
           onChange={this.changeInputHandler}
         />
-        <p className={assignedClasses .join(" ")}>{this.state.longText}</p>
+        <p className={assignedClasses.join(" ")}>{this.state.longText}</p>
         <ValidationComponent length={this.state.longText} />
         {this.state.inputText.split("").map((x, index) => (
           <CharComponent
