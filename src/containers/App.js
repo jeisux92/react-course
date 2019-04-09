@@ -3,6 +3,39 @@ import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
 import classes from './App.css'
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    console.log('[App.js] constructor');
+    this.state = {
+      persons: [
+        { id: 1, name: 'Gabriel', age: 26 },
+        { id: 2, name: 'Luisa', age: 26 },
+        { id: 3, name: 'Gloria', age: 48 }
+      ],
+      showPerson: false,
+      showCockpit: true
+
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props, state)
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] was mounted')
+    //setInterval(() => this.setState((prevState) => ({ time: prevState.time + 1 })), 1000)
+  }
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate')
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate')
+    return true;
+  }
   nameChangedHandler = (id, event) => {
     const personIndex = this.state.persons.findIndex(x => x.id === id)
     const person = { ...this.state.persons[personIndex] }
@@ -15,16 +48,7 @@ class App extends Component {
       persons: persons
     })
   }
-  state = {
-    persons: [
-      { id: 1, name: 'Gabriel', age: 26 },
-      { id: 2, name: 'Luisa', age: 26 },
-      { id: 3, name: 'Stephanie', age: 26 }
-    ],
-    showPerson: false,
-    longText: 0,
-    inputText: ''
-  }
+
   deletePersonHandler = index => {
     let persons = this.state.persons
     persons.splice(index, 1)
@@ -39,7 +63,15 @@ class App extends Component {
       showPerson: !prevState.showPerson
     }))
   }
-  render () {
+
+  toggleCockpit = () => {
+    this.setState((prevState) => ({
+      showCockpit: !prevState.showCockpit
+    }))
+  }
+  render() {
+
+    console.log('[App.js] render method', Date.now())
     let persons
 
     if (this.state.showPerson) {
@@ -54,11 +86,13 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <Cockpit
+        <p>{this.state.time}</p>
+        <button onClick={this.toggleCockpit}>Remove cockpit</button>
+        {this.state.showCockpit ? <Cockpit
           persons={this.state.persons}
           showPersons={this.state.showPerson}
           toggle={this.togglePersonsHandler}
-        />
+        /> : null}
         {persons}
       </div>
     )

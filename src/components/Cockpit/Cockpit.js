@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classes from './Cockpit.css'
 
 const cockpit = props => {
+
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect componentDidMounted')
+    //Http request
+    //componentDidMount
+    //componentDidUpdate
+    const timer = setTimeout(() => {
+      console.log("[Cockpit.js] timer")
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      console.log("component cleaned up")
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect props changed')
+    //Http request
+    //componentDidMounted
+  }, [props.showPersons])
+
   let assignedClasses = []
   let btnClass = ''
   if (props.showPersons) {
