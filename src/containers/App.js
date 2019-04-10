@@ -89,7 +89,7 @@ class App extends Component {
         <p>{this.state.time}</p>
         <button onClick={this.toggleCockpit}>Remove cockpit</button>
         {this.state.showCockpit ? <Cockpit
-          persons={this.state.persons}
+          personsLength={this.state.persons.length}
           showPersons={this.state.showPerson}
           toggle={this.togglePersonsHandler}
         /> : null}

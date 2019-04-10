@@ -14,7 +14,7 @@ const cockpit = props => {
 
     return () => {
       clearTimeout(timer);
-      console.log("component cleaned up")
+      console.log("[Cockpit.js] component cleaned up")
     }
   }, [])
 
@@ -24,16 +24,23 @@ const cockpit = props => {
     //componentDidMounted
   }, [props.showPersons])
 
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect props changed')
+    return () => {
+      console.log("[Cockpit.js] 2nd component cleaned up")
+    }
+  })
+
   let assignedClasses = []
   let btnClass = ''
   if (props.showPersons) {
     btnClass = classes.red
   }
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignedClasses.push(classes.red)
   }
 
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push(classes.bold)
   }
   return (
@@ -48,4 +55,4 @@ const cockpit = props => {
   )
 }
 
-export default cockpit
+export default React.memo(cockpit)
