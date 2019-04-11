@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
 import classes from './App.css'
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Auxiliary';
+
 class App extends Component {
 
   constructor(props) {
@@ -85,7 +88,7 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
+      <Aux>
         <p>{this.state.time}</p>
         <button onClick={this.toggleCockpit}>Remove cockpit</button>
         {this.state.showCockpit ? <Cockpit
@@ -94,9 +97,9 @@ class App extends Component {
           toggle={this.togglePersonsHandler}
         /> : null}
         {persons}
-      </div>
+      </Aux>
     )
   }
 }
 
-export default App
+export default withClass(App, classes.App);
