@@ -17,7 +17,8 @@ class App extends Component {
         { id: 3, name: 'Gloria', age: 48 }
       ],
       showPerson: false,
-      showCockpit: true
+      showCockpit: true,
+      changeCounter:0
 
     }
   }
@@ -47,9 +48,10 @@ class App extends Component {
     const persons = [...this.state.persons]
     persons[personIndex] = person
 
-    this.setState({
-      persons: persons
-    })
+    this.setState((prevState)=>({
+      persons: persons,
+      changeCounter:prevState.changeCounter+1
+    }))
   }
 
   deletePersonHandler = index => {
@@ -89,6 +91,7 @@ class App extends Component {
 
     return (
       <Aux>
+        {this.state.changeCounter}
         <p>{this.state.time}</p>
         <button onClick={this.toggleCockpit}>Remove cockpit</button>
         {this.state.showCockpit ? <Cockpit
