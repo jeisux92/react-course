@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 import AuthContext from "../../../context/auth-context";
 
 class Person extends Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.inputElementRef = React.createRef();
@@ -31,7 +33,6 @@ class Person extends Component {
           value={this.props.name}
           ref={this.inputElementRef}
         />
-        )
       </Aux>
     );
   }
@@ -43,5 +44,4 @@ Person.propTypes = {
   age: PropTypes.number,
   changed: PropTypes.func,
 };
-Person.contextType = AuthContext;
 export default withClass(Person, classes.Person);

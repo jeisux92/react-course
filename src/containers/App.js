@@ -78,8 +78,10 @@ class App extends Component {
 
   loginHandler = () => {
     this.setState(prevState => ({
-      isAuthenticated: true,
+      isAuthenticated: !prevState.isAuthenticated,
     }));
+
+
   };
   render() {
     console.log("[App.js] render method", Date.now());
@@ -115,6 +117,7 @@ class App extends Component {
               toggle={this.togglePersonsHandler.bind(this)}
             />
           ) : null}
+        {persons}
         </AuthContext.Provider>
         {persons}
       </Aux>
